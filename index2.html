@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gift for iu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe4e1; /* Màu hồng nhạt */
+            overflow: hidden; /* Ngăn scroll khi lấp đầy */
+        }
+        .container {
+            text-align: center;
+            z-index: 1000;
+        }
+        .title {
+            font-size: 50px; /* Tăng kích thước chữ lên */
+            margin-bottom: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid black; /* Thêm viền đen */
+            background-color: white; /* Nền trắng */
+            color: #ffc0cb; /* Chữ màu hồng */
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #f8f8f8; /* Hover nền xám nhạt để nổi bật */
+            color: #ff69b4; /* Hover chữ hồng đậm hơn */
+        }
+        .mini-window {
+            position: fixed;
+            width: 150px;
+            height: 100px;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 12px; /* Bo tròn hơn 4 góc */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 2.5s ease, transform 2.5s ease;
+            z-index: 1; /* Z-index cơ bản, sẽ được set ngẫu nhiên */
+        }
+        .mini-window.show {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+        .pink-rect {
+            background-color: #ffc0cb; /* Màu hồng */
+            width: calc(100% - 10px); /* Chừa 5px mỗi bên */
+            height: calc(100% - 30px); /* Chừa khoảng rộng ở trên (20px) và dưới (10px) */
+            margin: 20px 5px 5px 5px; /* Chừa trên rộng, dưới và bên chút xíu */
+            border-radius: 8px; /* Bo tròn nhẹ cho hình chữ nhật */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Anh Có Điều Muốn Nói</div>
+        <button onclick="createMiniWindows()">Ấn Vào Đây Nè !!!</button>
+    </div>
+
+    <script>
+        function createMiniWindows() {
+            // Ẩn button sau khi ấn
+            document.querySelector('button').style.display = 'none';
+            // Ẩn tiêu đề luôn
+            document.querySelector('.title').style.display = 'none';
+            
+            const numWindows = 200; // Số lượng cửa sổ đủ để lấp đầy (có thể điều chỉnh)
+            const texts = [
+                "nho em qaaaa", "anh iu em nhiu lomm", "om om mot chut nhe", "ngay hom nay cua em the nao", "bé oi, anh iu em",
+                "hii bé của anh", "moaa ", "nho nho nho em", "iu anh hong", "thưn thưn nhiu lomm"
+            ]; // Mảng text lặp lại
+
+            for (let i = 0; i < numWindows; i++) {
+                setTimeout(() => {
+                    const window = document.createElement('div');
+                    window.className = 'mini-window';
+                    
+                    // Vị trí ngẫu nhiên để chồng chéo
+                    const top = Math.random() * 90 + '%'; // Từ 0% đến 90% để tránh tràn
+                    const left = Math.random() * 90 + '%';
+                    window.style.top = top;
+                    window.style.left = left;
+                    
+                    // Z-index ngẫu nhiên để chồng lên nhau
+                    window.style.zIndex = Math.floor(Math.random() * 1000) + 1;
+                    
+                    // Text ngẫu nhiên từ mảng
+                    const text = texts[i % texts.length];
+                    window.innerHTML = `
+                        <div class="pink-rect">
+                            <p>${text}</p>
+                        </div>
+                    `;
+                    document.body.appendChild(window);
+
+                    // Hiển thị từ từ, chậm hơn
+                    setTimeout(() => {
+                        window.classList.add('show');
+                    }, 100 * (i % 10)); // Tăng delay hiển thị để chậm hơn
+                }, 50 * i); // Tăng delay tạo để chậm hơn (từ 10 lên 50ms mỗi cái)
+            }
+        }
+    </script>
+</body>
+</html>
